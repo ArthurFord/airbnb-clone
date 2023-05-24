@@ -5,7 +5,7 @@ import MidCard from '@/components/MidCard'
 import { randomInt } from 'crypto'
 import LargeCard from '@/components/LargeCard'
 import Footer from '@/components/Footer'
-import { exploreItem, anywhereItem } from '@/types'
+import { exploreItem, anywhereItem, largeItem } from '@/types'
 
 export default async function Home() {
   const exploreData = await getExploreData()
@@ -22,12 +22,11 @@ export default async function Home() {
           <div className='grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
             {exploreData?.users.map((item: exploreItem) => (
               <SmallCard
-                key={item.id}
-                img={item.image}
-                fname={item.firstName}
-                lname={item.lastName}
-                city={item.address.city}
-                state={item.address.state}
+                id={item.id}
+                image={item.image}
+                firstName={item.firstName}
+                lastName={item.lastName}
+                address={item.address}
               />
             ))}
           </div>
@@ -37,8 +36,8 @@ export default async function Home() {
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3'>
             {anywhereData?.products.map((item: anywhereItem) => (
               <MidCard
-                key={item.id}
-                img={item.thumbnail}
+                id={item.id}
+                thumbnail={item.thumbnail}
                 title={item.title}
               />
             ))}
@@ -47,8 +46,8 @@ export default async function Home() {
         <section className='pb-6'>
           <div className='relative h-96'>
             <LargeCard
-              key={largeData.id}
-              img={largeData.thumbnail}
+              id={largeData.id}
+              img={largeData.img}
               title={largeData.title}
             />
           </div>
@@ -62,9 +61,9 @@ export default async function Home() {
 async function getExploreData() {
   const url = 'https://dummyjson.com/users?limit=8&skip=10'
 
-  const exploreData = await fetch(url)
+  const res = await fetch(url)
 
-  return exploreData.json()
+  return res.json()
 }
 
 async function getAnywhereData() {

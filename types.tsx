@@ -3,14 +3,17 @@ export type exploreItem = {
   image: string
   firstName: string
   lastName: string
-  address: {
-    city: string
-    state: string
-  }
+  address: { city: string; state: string }
 }
 
 export type anywhereItem = {
   id: string
   thumbnail: string
+  title: string
+}
+
+export type largeItem = {
+  id: string
+  img: string
   title: string
 }

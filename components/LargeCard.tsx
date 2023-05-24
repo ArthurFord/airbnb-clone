@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
+import { largeItem } from '@/types'
 
-function LargeCard(props) {
+function LargeCard(props: largeItem) {
   return (
     <>
       <main>
