@@ -8,7 +8,7 @@ function LargeCard(props: largeItem) {
       <main>
         <div className='relative h-96 w-auto'>
           <Image
-            src={props.img}
+            src={props.thumbnail}
             alt={props.title}
             fill
             className='rounded-2xl object-cover'

@@ -10,7 +10,7 @@ import { exploreItem, anywhereItem, largeItem } from '@/types'
 export default async function Home() {
   const exploreData = await getExploreData()
   const anywhereData = await getAnywhereData()
-  const largeData = await getLargeData()
+  const largeData: largeItem = await getLargeData()
 
   return (
     <div>
@@ -47,7 +47,7 @@ export default async function Home() {
           <div className='relative h-96'>
             <LargeCard
               id={largeData.id}
-              img={largeData.img}
+              thumbnail={largeData.thumbnail}
               title={largeData.title}
             />
           </div>

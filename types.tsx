@@ -14,6 +14,6 @@ export type anywhereItem = {
 
 export type largeItem = {
   id: string
-  img: string
+  thumbnail: string
   title: string
 }
