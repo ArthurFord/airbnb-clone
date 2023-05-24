@@ -59,7 +59,7 @@ export default async function Home() {
   )
 }
 
-export async function getExploreData() {
+async function getExploreData() {
   const url = 'https://dummyjson.com/users?limit=8&skip=10'
 
   const exploreData = await fetch(url)
@@ -67,7 +67,7 @@ export async function getExploreData() {
   return exploreData.json()
 }
 
-export async function getAnywhereData() {
+async function getAnywhereData() {
   const url = 'https://dummyjson.com/products?limit=8&skip=10'
 
   const anywhereData = await fetch(url)
@@ -75,7 +75,7 @@ export async function getAnywhereData() {
   return anywhereData.json()
 }
 
-export async function getLargeData() {
+async function getLargeData() {
   const featured = randomInt(1, 30)
 
   const url = `https://dummyjson.com/products/${featured}`
