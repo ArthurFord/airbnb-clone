@@ -3,9 +3,9 @@ import Header from '@/components/Header'
 import SmallCard from '@/components/SmallCard'
 import MidCard from '@/components/MidCard'
 import { randomInt } from 'crypto'
-import Image from 'next/image'
 import LargeCard from '@/components/LargeCard'
 import Footer from '@/components/Footer'
+import { exploreItem, anywhereItem } from '@/types'
 
 export default async function Home() {
   const exploreData = await getExploreData()
@@ -20,7 +20,7 @@ export default async function Home() {
         <section className='pt-6 mb-16'>
           <h1 className='text-xl font-semibold pb-5'>Explore Nearby</h1>
           <div className='grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-            {exploreData?.users.map((item) => (
+            {exploreData?.users.map((item: exploreItem) => (
               <SmallCard
                 key={item.id}
                 img={item.image}
@@ -35,7 +35,7 @@ export default async function Home() {
         <section className='pt-6 mb-16'>
           <h1 className='text-xl font-semibold pb-5'>Live Anywhere</h1>
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3'>
-            {anywhereData?.products.map((item) => (
+            {anywhereData?.products.map((item: anywhereItem) => (
               <MidCard
                 key={item.id}
                 img={item.thumbnail}
