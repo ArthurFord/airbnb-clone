@@ -1,7 +1,33 @@
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { use, useState } from 'react'
+import 'react-date-range/dist/styles.css' // main style file
+import 'react-date-range/dist/theme/default.css' // theme css file
+import { DateRangePicker, Range } from 'react-date-range'
 
 function Header() {
+  const [searchInput, setSearchInput] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const [numberOfGuests, setNumberOfGuests] = useState(1)
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: 'selection',
+  }
+
+  const handleSelect = (ranges) => {
+    setStartDate(ranges.selection.startDate)
+    setEndDate(ranges.selection.endDate)
+  }
+
+  const cancelBtn = () => {
+    setSearchInput('')
+    setStartDate(new Date())
+    setEndDate(new Date())
+  }
+
   return (
     <header className='sticky top-0 z-50 grid grid-columns-3 bg-white shadow-md p-5 md:p-10'>
       {/* left */}
@@ -20,6 +46,8 @@ function Header() {
       {/* middle - search */}
       <div className='relative flex items-center h-10 cursor-pointer my-auto col-span-1 col-start-2 md:border-2 rounded-full py-2 md:shadow-sm'>
         <input
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           type='text'
           placeholder='Start your search'
           className='pl-5 bg-transparent outline-none flex-grow text-gray-600 placeholder-gray-400'
@@ -28,7 +56,7 @@ function Header() {
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
           fill='currentColor'
-          className='w-8 h-8 text-orange-400 hidden md:inline-flex mx-auto md:mx-0.5'>
+          className='w-8 h-8 text-red-400 hidden md:inline-flex mx-auto md:mx-0.5'>
           <path d='M8.25 10.875a2.625 2.625 0 115.25 0 2.625 2.625 0 01-5.25 0z' />
           <path
             fillRule='evenodd'
@@ -82,6 +110,43 @@ function Header() {
           </svg>
         </div>
       </div>
+      {searchInput && (
+        <div className='flex flex-col col-span-1 col-start-2 mx-auto'>
+          <DateRangePicker
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={['#FD5B61']}
+            onChange={handleSelect}
+          />
+          <div className='flex items-center border-b mb-4'>
+            <h2 className='text-2xl pl-2 font-semibold flex-grow'>
+              Number of Guests
+            </h2>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+              fill='currentColor'
+              className='w-5 h-5'>
+              <path d='M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z' />
+            </svg>
+            <input
+              className='w-12 pl-2 text-lg outline-none text-red-400'
+              value={numberOfGuests}
+              type='number'
+              min={1}
+              onChange={(e) => setNumberOfGuests(e.target.valueAsNumber)}
+            />
+          </div>
+          <div className='flex font-semibold'>
+            <button
+              onClick={cancelBtn}
+              className='flex-grow text-gray-400'>
+              Cancel
+            </button>
+            <button className='flex-grow text-red-400'>Search</button>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
